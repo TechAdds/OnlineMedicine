@@ -10,64 +10,8 @@ import React from "react";
 
 const Appointment = () => {
   return (
-    <View style={styles.aboutContainer}>
-      <Text style={styles.mainHeader}> Vinod bahadur thapa </Text>
-      <Text style={styles.paraStyle}> I am a full stack developer 😀 </Text>
-
-      <View style={styles.aboutLayout}>
-        <Text style={styles.aboutSubHeader}> About me </Text>
-        <Text style={[styles.paraStyle, styles.aboutPara]}>
-          Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean
-          commodo ligula eget dolor. Lorem ipsum dolor sit amet, consectetuer
-          adipiscing elit. Aenean commodo ligula eget dolor.
-        </Text>
-      </View>
-
-      <Text style={styles.mainHeader}> Follow me on Social Network </Text>
-
-      <View style={styles.menuContainer}>
-        <TouchableOpacity
-          style={styles.buttonStyle}
-          onPress={() =>
-            Linking.openURL("https://www.instagram.com/thapatechnical/")
-          }
-        >
-          <Image
-            style={styles.iconStyle}
-            source={{
-              uri: "https://cdn-icons-png.flaticon.com/512/2111/2111463.png",
-            }}
-          />
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          style={styles.buttonStyle}
-          onPress={() =>
-            Linking.openURL(
-              "https://www.youtube.com/channel/UCwfaAHy4zQUb2APNOGXUCCA"
-            )
-          }
-        >
-          <Image
-            style={styles.iconStyle}
-            source={{
-              uri: "https://cdn-icons-png.flaticon.com/512/187/187210.png",
-            }}
-          />
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          style={styles.buttonStyle}
-          onPress={() => Linking.openURL("https://discord.gg/AN8ThRBXtY")}
-        >
-          <Image
-            style={styles.iconStyle}
-            source={{
-              uri: "https://cdn-icons-png.flaticon.com/512/906/906361.png",
-            }}
-          />
-        </TouchableOpacity>
-      </View>
+    <View>
+      <Text>Under Construction</Text>
     </View>
   );
 };

@@ -20,7 +20,7 @@ const StoreContainer = () => {
 
   useEffect(() => {
     // console.log("cart", cart);
-    fetch("https://fakestoreapi.com/products")
+    fetch("https://sanjanasanikommu.github.io/products/products.json")
       .then((res) => res.json())
       .then((json) => setData(json));
   }, []);
@@ -39,6 +39,7 @@ const StoreContainer = () => {
             <Text style={styles.storeItemPrice}>${item.price}</Text>
             <TouchableOpacity
               onPress={() => {
+                // if(item.)
                 dispatch(addToCart(item));
               }}
               style={styles.addToCart}

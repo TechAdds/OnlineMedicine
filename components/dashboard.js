@@ -20,7 +20,7 @@ export default function Dashboard() {
           headerShown: false,
         }}
       >
-        {(props) => <Home {...props} channelName={"Thapa Technical"} />}
+        {(props) => <Home {...props} channelName={"Niraamaya"} />}
       </Stack.Screen>
 
       {/* About Screen  */}

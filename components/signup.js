@@ -6,6 +6,7 @@ import {
   Text,
   View,
   TextInput,
+  Image,
   Button,
   Alert,
   ActivityIndicator,
@@ -66,6 +67,13 @@ export default class Signup extends Component {
     }
     return (
       <View style={styles.container}>
+        <Text
+          style={styles.appName}
+        >Niraamaya</Text>
+        <Image
+          style={styles.imgStyle}
+          source={require("../assets/appLogo.webp")}
+        />
         <TextInput
           style={styles.inputStyle}
           placeholder="Name"
@@ -134,5 +142,16 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     backgroundColor: "#fff",
+  },
+  imgStyle: {
+    width: 250,
+    height: 250,
+    borderRadius: 100,
+    alignSelf: "center",
+  },
+  appName: {
+    color: "#556B2F",
+    textAlign: "center",
+    fontSize: 50,
   },
 });

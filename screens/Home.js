@@ -4,7 +4,7 @@ import Menu from "../components/Menu";
 
 const Home = (props) => {
   const description =
-    "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. ";
+    "Niraamaya is a fast-growing online pharmacy that empowers people to buy medicines and other health care products from the convenience of home 24/7 and 365 days a year.";
 
   return (
     <View style={styles.mainContainer}>
@@ -84,7 +84,7 @@ const styles = StyleSheet.create({
   },
 
   paraStyle: {
-    textAlign: "left",
+    textAlign: "center",
     fontSize: 19,
     color: "#7d7d7d",
     marginTop: 30,

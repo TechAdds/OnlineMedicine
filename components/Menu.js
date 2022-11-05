@@ -13,9 +13,7 @@ const Menu = () => {
         {/* <Text>Course</Text> */}
         <Image
           style={styles.iconStytle}
-          source={{
-            uri: "https://img.icons8.com/stickers/90/000000/training.png",
-          }}
+          source={require("../assets/labAppointment.jpg")}
         />
       </TouchableOpacity>
 
@@ -25,9 +23,7 @@ const Menu = () => {
       >
         <Image
           style={styles.iconStytle}
-          source={{
-            uri: "https://img.icons8.com/stickers/100/000000/conference.png",
-          }}
+          source={require("../assets/pharmacy-cart.webp")}
         />
       </TouchableOpacity>
 
@@ -37,9 +33,7 @@ const Menu = () => {
       >
         <Image
           style={styles.iconStytle}
-          source={{
-            uri: "https://img.icons8.com/stickers/100/000000/about.png",
-          }}
+          source={require("../assets/doctorAppointment.jpg")}
         />
       </TouchableOpacity>
     </View>

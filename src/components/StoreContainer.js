@@ -5,13 +5,12 @@ import {
   FlatList,
   Image,
   TouchableOpacity,
+  Alert,
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import { addToCart } from "../redux/features/cart/cartSlice";
 import { useDispatch, useSelector } from "react-redux";
-
-import Data from "../../assets/cartItems";
-
+import UploadImage from "./UploadImage";
 const url = "https://course-api.com/react-useReducer-cart-project";
 
 const StoreContainer = () => {
@@ -27,6 +26,12 @@ const StoreContainer = () => {
 
   console.log(Data);
 
+  state = { language: "" };
+
+  handleLanguage = (langValue) => {
+    this.setState({ language: langValue });
+  };
+
   const StoreItems = () => {
     const renderStoreItems = ({ item }) => {
       return (
@@ -34,18 +39,47 @@ const StoreContainer = () => {
           <View style={styles.storeItemImg}>
             <Image style={styles.storeItemImage} source={{ uri: item.image }} />
           </View>
+
           <View style={styles.storeItemInfo}>
             <Text style={styles.storeItemTitle}>{item.title}</Text>
             <Text style={styles.storeItemPrice}>${item.price}</Text>
-            <TouchableOpacity
-              onPress={() => {
-                // if(item.)
-                dispatch(addToCart(item));
-              }}
-              style={styles.addToCart}
-            >
-              <Text style={styles.addToCartText}>Add to Cart</Text>
-            </TouchableOpacity>
+            <Text> Doctor Prescription Required: {item.isPresReq}</Text>
+            {item.isPresReq === "Yes" && (
+              <UploadImage onSelectLanguage={this.handleLanguage} />
+            )}
+            {item.instock === "no" && (
+              <TouchableOpacity
+                onPress={() => {
+                  if (item.instock === "no") {
+                    Alert.alert("Item is not available in Stock");
+                  } else {
+                    dispatch(addToCart(item));
+                  }
+                }}
+                style={styles.addToCartDisabled}
+              >
+                <Text style={styles.addToCartText}>Add to Cart</Text>
+              </TouchableOpacity>
+            )}
+
+            {item.instock === "yes" && (
+              <TouchableOpacity
+                onPress={() => {
+                  if (item.isPresReq === "Yes") {
+                    console.log("Sanajna" + this.props.language);
+                    Alert.alert(
+                      "Please upload doctor prescription before adding products to cart"
+                    );
+                    // dispatch(addToCart(item));
+                  } else {
+                    dispatch(addToCart(item));
+                  }
+                }}
+                style={styles.addToCart}
+              >
+                <Text style={styles.addToCartText}>Add to Cart</Text>
+              </TouchableOpacity>
+            )}
           </View>
         </View>
       );
@@ -99,6 +133,9 @@ const styles = StyleSheet.create({
     width: "70%",
     padding: 10,
   },
+  uploadItemInfo: {
+    padding: 15,
+  },
   storeItemTitle: {
     fontSize: 18,
     fontWeight: "bold",
@@ -108,7 +145,15 @@ const styles = StyleSheet.create({
     color: "red",
   },
   addToCart: {
-    backgroundColor: "black",
+    backgroundColor: "blue",
+    padding: 10,
+    borderRadius: 5,
+    marginTop: 10,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  addToCartDisabled: {
+    backgroundColor: "orange",
     padding: 10,
     borderRadius: 5,
     marginTop: 10,

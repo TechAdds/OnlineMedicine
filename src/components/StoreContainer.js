@@ -6,6 +6,8 @@ import {
   Image,
   TouchableOpacity,
   Alert,
+  TextInput,
+  SafeAreaView,
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import { addToCart } from "../redux/features/cart/cartSlice";
@@ -14,6 +16,74 @@ import UploadImage from "./UploadImage";
 const url = "https://course-api.com/react-useReducer-cart-project";
 
 const StoreContainer = () => {
+  const [search, setSearch] = useState("");
+  const [filteredDataSource, setFilteredDataSource] = useState([]);
+  const [masterDataSource, setMasterDataSource] = useState([]);
+
+  useEffect(() => {
+    fetch("https://sanjanasanikommu.github.io/products/products.json")
+      .then((response) => response.json())
+      .then((responseJson) => {
+        setFilteredDataSource(responseJson);
+        setMasterDataSource(responseJson);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }, []);
+
+  const searchFilterFunction = (text) => {
+    // Check if searched text is not blank
+    if (text) {
+      // Inserted text is not blank
+      // Filter the masterDataSource
+      // Update FilteredDataSource
+      const newData = masterDataSource.filter(function (item) {
+        const itemData = item.title
+          ? item.title.toUpperCase()
+          : "".toUpperCase();
+        const textData = text.toUpperCase();
+        return itemData.indexOf(textData) > -1;
+      });
+      setFilteredDataSource(newData);
+      setSearch(text);
+    } else {
+      // Inserted text is blank
+      // Update FilteredDataSource with masterDataSource
+      setFilteredDataSource(masterDataSource);
+      setSearch(text);
+    }
+  };
+
+  const ItemView = ({ item }) => {
+    return (
+      // Flat List Item
+      <Text style={styles.itemStyle} onPress={() => getItem(item)}>
+        {item.id}
+        {"."}
+        {item.title.toUpperCase()}
+      </Text>
+    );
+  };
+
+  const ItemSeparatorView = () => {
+    return (
+      // Flat List Item Separator
+      <View
+        style={{
+          height: 0.5,
+          width: "100%",
+          backgroundColor: "#C8C8C8",
+        }}
+      />
+    );
+  };
+
+  const getItem = (item) => {
+    // Function for click on an item
+    alert("Id : " + item.id + " Title : " + item.title);
+  };
+
   const dispatch = useDispatch();
   const [Data, setData] = useState();
 
@@ -25,12 +95,6 @@ const StoreContainer = () => {
   }, []);
 
   console.log(Data);
-
-  state = { language: "" };
-
-  handleLanguage = (langValue) => {
-    this.setState({ language: langValue });
-  };
 
   const StoreItems = () => {
     const renderStoreItems = ({ item }) => {
@@ -44,9 +108,7 @@ const StoreContainer = () => {
             <Text style={styles.storeItemTitle}>{item.title}</Text>
             <Text style={styles.storeItemPrice}>${item.price}</Text>
             <Text> Doctor Prescription Required: {item.isPresReq}</Text>
-            {item.isPresReq === "Yes" && (
-              <UploadImage onSelectLanguage={this.handleLanguage} />
-            )}
+            {item.isPresReq === "Yes" && <UploadImage />}
             {item.instock === "no" && (
               <TouchableOpacity
                 onPress={() => {
@@ -66,7 +128,6 @@ const StoreContainer = () => {
               <TouchableOpacity
                 onPress={() => {
                   if (item.isPresReq === "Yes") {
-                    console.log("Sanajna" + this.props.language);
                     Alert.alert(
                       "Please upload doctor prescription before adding products to cart"
                     );
@@ -86,13 +147,27 @@ const StoreContainer = () => {
     };
 
     return (
-      <View>
+      <View style={styles.container}>
+        <TextInput
+          style={styles.textInputStyle}
+          onChangeText={(text) => searchFilterFunction(text)}
+          value={search}
+          underlineColorAndroid="transparent"
+          placeholder="Search Here"
+        />
+
         <FlatList
+          data={filteredDataSource}
+          keyExtractor={(item) => item.id}
+          ItemSeparatorComponent={ItemSeparatorView}
+          renderItem={renderStoreItems}
+        />
+        {/* <FlatList
           data={Data}
           renderItem={renderStoreItems}
           keyExtractor={(item) => item.id}
           ListFooterComponent={() => <View style={{ height: 200 }} />}
-        />
+        /> */}
       </View>
     );
   };
@@ -164,5 +239,16 @@ const styles = StyleSheet.create({
     color: "white",
     fontSize: 16,
     fontWeight: "bold",
+  },
+  itemStyle: {
+    padding: 10,
+  },
+  textInputStyle: {
+    height: 40,
+    borderWidth: 1,
+    paddingLeft: 20,
+    margin: 5,
+    borderColor: "#009688",
+    backgroundColor: "#FFFFFF",
   },
 });
